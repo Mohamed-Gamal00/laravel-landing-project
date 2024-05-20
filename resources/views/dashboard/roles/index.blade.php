@@ -21,9 +21,9 @@
         <div class="col-lg-12 margin-tb mb-4">
             <div class="pull-left">
                 <h2>Role Management
-                    <div class="float-end">
+                    <div class="float-end my-3">
                         @can('role-create')
-                            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
+                        <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
                         @endcan
                     </div>
                 </h2>
@@ -55,7 +55,7 @@
 
                         @csrf
                         @method('DELETE')
-                        @can('product-delete')
+                        @can('role-delete')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         @endcan
                     </form>

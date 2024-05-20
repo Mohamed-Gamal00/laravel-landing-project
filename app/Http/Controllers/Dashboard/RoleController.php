@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -29,7 +30,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('roles.create', compact('permission'));
+        return view('dashboard.roles.create', compact('permission'));
     }
 
     public function store(Request $request)
@@ -39,8 +40,11 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
+
+        
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->permission);
+
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
@@ -53,7 +57,7 @@ class RoleController extends Controller
             ->where("role_has_permissions.role_id", $id)
             ->get();
 
-        return view('roles.show', compact('role', 'rolePermissions'));
+        return view('dashboard.roles.show', compact('role', 'rolePermissions'));
     }
 
     public function edit($id)
@@ -64,7 +68,7 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+        return view('dashboard.roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
     public function update(Request $request, $id)

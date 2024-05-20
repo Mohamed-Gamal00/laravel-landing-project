@@ -49,6 +49,8 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Type</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -59,6 +61,12 @@
                                         <th class="align-middle" scope="row">{{ $loop->iteration }}</th>
                                         <td class="align-middle">{{ $user->name }}</td>
                                         <td class="align-middle">{{ $user->email }}</td>
+                                        <td class="align-middle">{{ $user->status }}</td>
+                                        <td class="align-middle">
+                                            @foreach ($user->roles_name as $role)
+                                                {{ $role }}<br>
+                                            @endforeach
+                                        </td>
                                         <td class="align-middle">
                                             <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
                                                 <a href="{{ route('user.edit', $user->id) }}">

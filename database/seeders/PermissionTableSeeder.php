@@ -11,26 +11,34 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PermissionTableSeeder extends Seeder
-// {
-//     /**
-//      * Run the database seeds.
-//      */
-//     public function run(): void
-//     {
-//         //
-//     }
-// }
-
 {
 
     /**
      * List of applications to add.
      */
     private $permissions = [
+
         'role-list',
         'role-create',
         'role-edit',
+        'role-update',
         'role-delete',
+
+        'user-list',
+        'user-create',
+        'user-edit',
+        'user-update',
+        'user-delete',
+
+        'category-list',
+        'category-create',
+        'category-edit',
+        'category-delete',
+
+        'post-list',
+        'post-create',
+        'post-edit',
+        'post-delete',
     ];
 
 
