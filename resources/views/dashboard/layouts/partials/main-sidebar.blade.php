@@ -86,7 +86,7 @@
                     </svg><span class="side-menu__label">Users</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ Route('user.index') }}">all users</a></li>
-                    <li><a class="slide-item" href="{{ Route('roles.index') }}">privileges</a></li>
+                    <li><a class="slide-item" href="{{ Route('roles.index') }}">roles</a></li>
                 </ul>
             </li>
 
