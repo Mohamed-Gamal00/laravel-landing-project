@@ -28,6 +28,8 @@
         <div>
             @yield('page-header')
             @yield('content')
+            @include('landing.layouts.partials.footer')
+
             @include('landing.layouts.partials.footer-scripts')
         </div>
 </body>

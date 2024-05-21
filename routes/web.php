@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,5 +35,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('contact', ContactController::class);
         Route::resource('user', UserController::class);
         Route::resource('roles', RoleController::class);
+        Route::resource('setting', SettingController::class);
+
     });
 });

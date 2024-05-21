@@ -33,18 +33,40 @@ class RoleController extends Controller
         return view('dashboard.roles.create', compact('permission'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'name' => 'required|unique:roles,name',
+    //         'permission' => 'required',
+    //     ]);
+
+    //     $role = Role::create(['name' => $request->input('name')]);
+    //     $role->syncPermissions($request->permission);
+
+
+    //     return redirect()->route('roles.index')
+    //         ->with('success', 'Role created successfully');
+    // }
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'permission' => 'required|array',
         ]);
 
+        $role = Role::create([
+            'name' => $request->input('name'),
+            'guard_name' => 'web',
+        ]);
 
-        
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->permission);
+        if ($request->has('permission')) {
+            $permissions = $request->permission;
 
+            foreach ($permissions as $permissionId) {
+                $permission = Permission::find($permissionId);
+                $role->givePermissionTo($permission);
+            }
+        }
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');

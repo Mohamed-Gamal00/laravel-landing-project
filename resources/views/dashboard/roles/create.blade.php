@@ -6,15 +6,6 @@
     <link href="{{ URL::asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Create Post</h2>
-            </div>
-        </div>
-    </div>
-    <!-- /breadcrumb -->
 @endsection
 @section('content')
     <div class="my-5">

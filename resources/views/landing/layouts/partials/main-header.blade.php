@@ -11,28 +11,13 @@
 <nav class="site-nav">
     <div class="container">
         <div class="site-navigation">
-            <a href="index.html" class="logo m-0 float-start">Archiark<span class="text-primary">.</span> </a>
+            <a href="{{route('landing')}}" class="logo m-0 float-start">Archiark<span class="text-primary">.</span> </a>
 
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-start">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li class="has-children">
-                    <a href="projects.html">Projects</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Commercial Building</a></li>
-                        <li><a href="#">Cultural Lifestyle</a></li>
-                        <li class="has-children">
-                            <a href="#">Dropdown</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Sub Menu One</a></li>
-                                <li><a href="#">Sub Menu Two</a></li>
-                                <li><a href="#">Sub Menu Three</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li class="{{ Request::routeIs('landing') ? 'active' : '' }}"><a href="{{route('landing')}}">Home</a></li>
+                <li class="{{ Request::routeIs('services') ? 'active' : '' }}"><a href="{{route('services')}}">Services</a></li>
+                <li class="{{ Request::routeIs('about') ? 'active' : '' }}"><a href="{{route('about')}}">About</a></li>
+                <li><a class="{{ Request::routeIs('contact') ? 'active' : '' }}" href="{{route('contact')}}">Contact</a></li>
             </ul>
 
 
