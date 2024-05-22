@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
-    protected $fillable = array('logo', 'phone');
-
+    protected $fillable = array(
+        'phone',
+        'email',
+        'fb_link',
+        'tw_link',
+        'insta_link',
+        'linkin_link'
+    );
 }

@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Posts</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Projects</h2>
             </div>
         </div>
     </div>
@@ -18,58 +18,68 @@
 @endsection
 @section('content')
 
-    <div class="col-xl-12 px-0">
-        <div class="card">
-            <div class="card-header pb-0 mb-3">
-                @if (Session::has('success'))
-                    <div class="alert alert-success text-center" role="alert">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <a href="{{ route('post.create') }}">
+    @if (count($projects))
+        <div class="col-xl-12 px-0">
+            <div class="card">
+                <div class="card-header pb-0 mb-3">
+                    @if (Session::has('success'))
+                        <div class="alert alert-success text-center" role="alert">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{{ route('project.create') }}">
 
-                            <button class="btn btn-outline-dark btn-block font-weight-bold">
-                                <i class="fa fa-plus mx-1"></i>
-                                Add New Post
-                            </button>
-                        </a>
+                                <button class="btn btn-outline-dark btn-block font-weight-bold">
+                                    <i class="fa fa-plus mx-1"></i>
+                                    Add New Projects
+                                </button>
+                            </a>
+                        </div>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
-            </div>
-            <div class="card-body">
-                @if (count($posts))
+                <div class="card-body">
+
+
+
                     <div class="table-responsive">
                         <table class="table table-striped mg-b-0 text-md-nowrap">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>image</th>
+                                    <th>Image</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>content</th>
+                                    <th>description</th>
+                                    <th>link</th>
+                                    <th>client</th>
+                                    <th>work_year</th>
+                                    <th>started</th>
+                                    <th>finished</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($posts as $post)
+                                @foreach ($projects as $project)
                                     <tr>
-                                        <th class="align-middle" scope="row">{{ $loop->iteration }}</th>
+                                        <th scope="row">{{ $loop->iteration }}</th>
                                         <td class="align-middle"><img style="object-fit: cover;border-radius: 8px;"
-                                                src="{{ asset("storage/$post->image") }}" width="60" height="60"
+                                                src="{{ asset("storage/$project->image") }}" width="60" height="60"
                                                 alt="img"></td>
-                                        <td class="align-middle">{{ $post->title }}</td>
-                                        <td class="align-middle">{{ $post->category->name }}</td>
-                                        <td class="align-middle">{{ $post->content }}</td>
+                                        <td class="align-middle">{{ $project->name }}</td>
+                                        <td class="align-middle">{{ $project->description }}</td>
+                                        <td class="align-middle">{{ $project->link }}</td>
+                                        <td class="align-middle">{{ $project->client }}</td>
+                                        <td class="align-middle">{{ $project->work_year }}</td>
+                                        <td class="align-middle">{{ $project->started }}</td>
+                                        <td class="align-middle">{{ $project->finished }}</td>
                                         <td class="align-middle">
                                             <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
-                                                <a href="{{ route('post.edit', $post->id) }}">
+                                                <a href="{{ route('project.edit', $project->id) }}">
                                                     <button class="btn btn-outline-success btn-with-icon btn-block">
                                                         <i class="typcn typcn-edit m-0"></i>
-
                                                     </button>
                                                 </a>
                                             </div>
@@ -77,14 +87,14 @@
                                         </td>
                                         <td class="align-middle">
 
-                                            <form action="{{ route('post.destroy', $post->id) }}" method="POST"
-                                                id="deleteForm{{ $post->id }}">
+                                            <form action="{{ route('project.destroy', $project->id) }}" method="POST"
+                                                id="deleteForm{{ $project->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
                                                     <button type="button"
                                                         class="btn btn-outline-danger btn-with-icon btn-block"
-                                                        onclick="confirmDelete({{ $post->id }})">
+                                                        onclick="confirmDelete({{ $project->id }})">
                                                         <i class="typcn typcn-trash m-0"></i>
                                                     </button>
                                                 </div>
@@ -92,7 +102,7 @@
 
                                             <script>
                                                 function confirmDelete(id) {
-                                                    if (confirm('Are you sure you want to delete this post?')) {
+                                                    if (confirm('Are you sure you want to delete this project?')) {
                                                         document.getElementById('deleteForm' + id).submit();
                                                     }
                                                 }
@@ -105,20 +115,19 @@
                             </tbody>
                         </table>
 
-                        {{ $posts->links() }} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
+                        {{ $projects->links() }} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
                     </div><!-- bd -->
-                @else
-                    <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
-                        <strong>OOps!</strong> this field is empty
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
+                </div><!-- bd -->
             </div><!-- bd -->
-        </div><!-- bd -->
-    </div>
-
+        </div>
+    @else
+        <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
+            <strong>OOPS!</strong> this field is empty.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 @endsection
 @section('js')
     <!--Internal  Chart.bundle js -->
@@ -129,7 +138,7 @@
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.categories.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.projects.js') }}"></script>
     <script src="{{ URL::asset('assets/js/dashboard.sampledata.js') }}"></script>
     <script src="{{ URL::asset('assets/js/chart.flot.sampledata.js') }}"></script>
     <!--Internal Apexchart js-->

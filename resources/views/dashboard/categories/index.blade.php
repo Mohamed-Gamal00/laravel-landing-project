@@ -18,33 +18,33 @@
 @endsection
 @section('content')
 
-    @if (count($categories))
-        <div class="col-xl-12 px-0">
-            <div class="card">
-                <div class="card-header pb-0 mb-3">
-                    @if (Session::has('success'))
-                        <div class="alert alert-success text-center" role="alert">
-                            {{ Session::get('success') }}
-                        </div>
-                    @endif
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <a href="{{ route('category.create') }}">
-
-                                <button class="btn btn-outline-dark btn-block font-weight-bold">
-                                    <i class="fa fa-plus mx-1"></i>
-                                    Add New Category
-                                </button>
-                            </a>
-                        </div>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+    <div class="col-xl-12 px-0">
+        <div class="card">
+            <div class="card-header pb-0 mb-3">
+                @if (Session::has('success'))
+                    <div class="alert alert-success text-center" role="alert">
+                        {{ Session::get('success') }}
                     </div>
+                @endif
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a href="{{ route('category.create') }}">
+
+                            <button class="btn btn-outline-dark btn-block font-weight-bold">
+                                <i class="fa fa-plus mx-1"></i>
+                                Add New Category
+                            </button>
+                        </a>
+                    </div>
+                    <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
-                <div class="card-body">
+            </div>
+            <div class="card-body">
 
-                    
 
-                    <div class="table-responsive">
+
+                @if (count($categories))
+                <div class="table-responsive">
                         <table class="table table-striped mg-b-0 text-md-nowrap">
                             <thead>
                                 <tr>
@@ -72,8 +72,8 @@
                                         </td>
                                         <td>
 
-                                            <form action="{{ route('category.destroy', $category->id) }}"
-                                                method="POST" id="deleteForm{{ $category->id }}">
+                                            <form action="{{ route('category.destroy', $category->id) }}" method="POST"
+                                                id="deleteForm{{ $category->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
@@ -94,23 +94,23 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
 
-                        {{$categories->links()}} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
+                        {{ $categories->links() }} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
                     </div><!-- bd -->
-                </div><!-- bd -->
+                    @else
+                        <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
+                            <strong>OOps!</strong> This field is empty.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                @endif
             </div><!-- bd -->
-        </div>
-    @else
-        <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
+        </div><!-- bd -->
+    </div>
+
 @endsection
 @section('js')
     <!--Internal  Chart.bundle js -->

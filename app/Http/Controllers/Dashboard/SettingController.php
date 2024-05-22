@@ -56,8 +56,31 @@ class SettingController extends Controller
     public function update(Request $request, string $id)
     {
         $settings = Setting::findOrFail($id);
-        $settings->update($request->all());
-        return Redirect::route('setting.index')->with('success', 'Setting Updated success');
+
+        // Validate incoming request data
+        $rules = [
+            'phone' => 'required',
+            'email' => 'required',
+            'fb_link' => 'nullable',
+            'tw_link' => 'nullable',
+            'insta_link' => 'nullable',
+            'linkdin_link' => 'nullable',
+        ];
+
+        $this->validate($request, $rules);
+
+        // dd($request->all());
+        // Update settings with validated data
+        $settings->update([
+            'phone' => $request->input('phone'),
+            'email' => $request->input('email'),
+            'fb_link' => $request->input('fb_link'),
+            'tw_link' => $request->input('tw_link'),
+            'insta_link' => $request->input('insta_link'),
+            'linkdin_link' => $request->input('linkdin_link'),
+        ]);
+
+        return redirect()->route('setting.index')->with('success', 'Setting Updated successfully');
     }
 
     /**

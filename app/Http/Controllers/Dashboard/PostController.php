@@ -42,7 +42,7 @@ class PostController extends Controller
             'content' => 'required'
         ];
         $message = [
-            'name.required' => 'Name is required',
+            'title.required' => 'Name is required',
             'category_id.required' => 'category is required',
             'image.required' => 'file image is required',
             'content.required' => 'content is required',

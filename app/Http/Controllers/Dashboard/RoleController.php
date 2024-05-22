@@ -101,6 +101,7 @@ class RoleController extends Controller
         ]);
 
         $role = Role::find($id);
+        dd($role);
         $role->name = $request->input('name');
         $role->save();
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\PostController;
+use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('roles', RoleController::class);
         Route::resource('setting', SettingController::class);
+        Route::resource('project', ProjectController::class);
 
     });
 });

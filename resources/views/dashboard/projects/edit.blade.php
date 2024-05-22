@@ -6,42 +6,24 @@
     <link href="{{ URL::asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
-
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <div>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Edit Category</h2>
+            </div>
+        </div>
+    </div>
+    <!-- /breadcrumb -->
 @endsection
 @section('content')
-   <div class="row">
-        <div class="col-lg-12 margin-tb mb-4">
-            <div class="pull-left mt-3">
-                <h2> Show Role
-                    <div class="float-end my-3">
-                        <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
-                    </div>
-                </h2>
-            </div>
-        </div>
+    <div class="my-5">
+        <form method="POST" action="{{ route('project.update',$project->id) }}" enctype="multipart/form-data">
+            @method('PUT')
+            @include('dashboard.projects.form')
+        </form>
     </div>
-
-
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {{ $role->name }}
-            </div>
-        </div>
-        <div class="col-md-12 mb-3">
-            <div class="form-group">
-                <strong>Permissions:</strong>
-                @if (!empty($rolePermissions))
-                    @foreach ($rolePermissions as $v)
-                        <p class="label label-secondary text-dark">{{ $v->name }},</p>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    </div>
-
-    @endsection
+@endsection
 @section('js')
     <!--Internal  Chart.bundle js -->
     <script src="{{ URL::asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
