@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class Projects extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
+        $settings = Setting::first();
 
+        $projects = Project::paginate(10);
+        return view('Landing.projects.index', compact('projects','settings'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -36,7 +40,9 @@ class Projects extends Controller
      */
     public function show(string $id)
     {
-        //
+        $settings = Setting::first();
+        $project = Project::FindOrFail($id);
+        return view('Landing.projects.show', compact('project', 'settings'));
     }
 
     /**

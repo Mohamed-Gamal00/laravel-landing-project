@@ -10,10 +10,18 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware(['permission:users'], ['only' => ['index']]);
+        $this->middleware(['permission:user-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:user-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:user-delete'], ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $data = User::latest()->paginate(5);
@@ -39,9 +47,19 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
 
-        // return Redirect::route('category.index')->with('success', 'Governorate Created success');
+        $role = Role::where('name', $request->roles_name)->first();
+
+        if ($role) {
+            // Assign all permissions to the role (if desired)
+            $permissions = Permission::pluck('id')->all();
+            $role->syncPermissions($permissions);
+            // Assign the role to the user
+            $user->assignRole($role);
+        } else {
+            return redirect()->route('user.index')
+            ->withErrors('The specified role does not exist.');
+        }
 
         return redirect()->route('user.index')
             ->with('success', 'User created successfully');
@@ -50,7 +68,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show', compact('user'));
+        return view('dashboard.users.show', compact('user'));
     }
 
     public function edit($id)
@@ -59,7 +77,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('users.edit', compact('user', 'roles', 'userRole'));
+        return view('dashboard.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     public function update(Request $request, $id)
@@ -84,14 +102,14 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('user.index')
             ->with('success', 'User updated successfully');
     }
 
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('user.index')
             ->with('success', 'User deleted successfully');
     }
 }

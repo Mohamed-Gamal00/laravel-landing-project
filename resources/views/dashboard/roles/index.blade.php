@@ -23,7 +23,7 @@
                 <h2>Role Management
                     <div class="float-end my-3">
                         @can('role-create')
-                        <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
+                            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
                         @endcan
                     </div>
                 </h2>
@@ -42,12 +42,14 @@
             <th>Name</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($roles as $key => $role)
+        @foreach ($roles as $role)
             <tr>
                 <td>{{ $role->name }}</td>
                 <td>
                     <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a>
+                        @can('role-show')
+                            <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a>
+                        @endcan
                         @can('role-edit')
                             <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Edit</a>
                         @endcan

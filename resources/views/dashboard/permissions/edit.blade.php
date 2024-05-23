@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Edit Post</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Edit permission</h2>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <div class="pull-left">
                 <h2>Edit Role
                     <div class="float-end">
-                        <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('permissions.index') }}"> Back</a>
                     </div>
                 </h2>
             </div>
@@ -42,28 +42,15 @@
         </div>
     @endif
 
-    <form action="{{ route('roles.update', $role->id) }}" method="POST">
+    <form action="{{ route('permissions.update', $permission->id) }}" method="POST">
         @method('PUT')
         @csrf
         <div class="row">
             <div class="col-xs-12 mb-3">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" value="{{ $role->name }}" name="name" class="form-control"
+                    <input type="text" value="{{ $permission->name }}" name="name" class="form-control"
                         placeholder="Name">
-                </div>
-            </div>
-            <div class="col-xs-12 mb-3">
-                <div class="form-group">
-                    <strong>Permissions:</strong>
-                    <br />
-                    @foreach ($permissions as $permission)
-                        <label>
-                            <input type="checkbox" @if (in_array($permission->id, $rolePermissions)) checked @endif name="permission[]"
-                                value="{{ $permission->name }}" class="name">
-                            {{ $permission->name }}</label>
-                        <br />
-                    @endforeach
                 </div>
             </div>
             <div class="col-xs-12 mb-3 text-center">

@@ -10,69 +10,57 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Edit Post</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">permissions</h2>
             </div>
         </div>
     </div>
     <!-- /breadcrumb -->
 @endsection
 @section('content')
-    <div class="my-5">
-<div class="row">
-        <div class="col-lg-12 margin-tb">
+    <div class="row">
+        <div class="col-lg-12 margin-tb mb-4">
             <div class="pull-left">
-                <h2>Edit Role
-                    <div class="float-end">
-                        <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                <h2>permission Management
+                    <div class="float-end my-3">
+                            <a class="btn btn-success" href="{{ route('permissions.create') }}"> Create New permission</a>
                     </div>
                 </h2>
             </div>
         </div>
     </div>
 
-
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
         </div>
     @endif
 
-    <form action="{{ route('roles.update', $role->id) }}" method="POST">
-        @method('PUT')
-        @csrf
-        <div class="row">
-            <div class="col-xs-12 mb-3">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" value="{{ $role->name }}" name="name" class="form-control"
-                        placeholder="Name">
-                </div>
-            </div>
-            <div class="col-xs-12 mb-3">
-                <div class="form-group">
-                    <strong>Permissions:</strong>
-                    <br />
-                    @foreach ($permissions as $permission)
-                        <label>
-                            <input type="checkbox" @if (in_array($permission->id, $rolePermissions)) checked @endif name="permission[]"
-                                value="{{ $permission->name }}" class="name">
-                            {{ $permission->name }}</label>
-                        <br />
-                    @endforeach
-                </div>
-            </div>
-            <div class="col-xs-12 mb-3 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Name</th>
+            <th width="280px">Action</th>
+        </tr>
+        @foreach ($permissions as $key => $permission)
+            <tr>
+                <td>{{ $permission->id }}</td>
+                <td>{{ $permission->name }}</td>
 
-    </div>
+                <td>
+                    <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('permissions.show', $permission->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('permissions.edit', $permission->id) }}">Edit</a>
+
+
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+
+    {!! $permissions->render() !!}
 @endsection
 @section('js')
     <!--Internal  Chart.bundle js -->

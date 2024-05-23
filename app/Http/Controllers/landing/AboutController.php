@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -12,7 +13,9 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return view('landing.about.index');
+        $settings = Setting::first();
+
+        return view('landing.about.index',compact('settings'));
     }
 
     /**

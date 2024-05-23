@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:projects'], ['only' => ['index']]);
+        $this->middleware(['permission:project-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:project-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:project-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -43,10 +50,6 @@ class ProjectController extends Controller
         // dd($request->all());
 
         $data = $request->except('image');
-        // if($request->hasFile('image')) {
-        //     $filePath = Storage::putFile('projects', $request->image);
-        //     $data['image'] = $filePath;
-        // }
         $data['image'] = $this->uploadImage($request);
 
         Project::create($data);
@@ -96,19 +99,8 @@ class ProjectController extends Controller
 
         $this->validate($request, $rules);
 
-
-        // if ($request->has('image')) {
-        //     Storage::delete($project->image);
-        //     $filePath = Storage::putFile('projects', $request->image);
-        //     $project->image = $filePath;
-        // }
-
         $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            Storage::delete($project->image);
-            $filePath = Storage::putFile('projects', $request->image);
-            $data['image'] = $filePath;
-        }
+        $data['image'] = $this->uploadImage($request);
         $project->update($data);
         return Redirect::route('project.index')->with('success', 'Project Updated success');
     }

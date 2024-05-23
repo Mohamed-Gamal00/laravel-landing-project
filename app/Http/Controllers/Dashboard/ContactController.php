@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class ContactController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:contacts'], ['only' => ['index']]);
+        $this->middleware(['permission:contact-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:contact-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:contact-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

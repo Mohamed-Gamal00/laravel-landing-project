@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
@@ -20,6 +21,13 @@ class RoleController extends Controller
     //     $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
     //     $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
     // }
+    function __construct()
+    {
+        $this->middleware(['permission:roles'], ['only' => ['index','show']]);
+        $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
+    }
 
     public function index(Request $request)
     {
@@ -29,48 +37,49 @@ class RoleController extends Controller
 
     public function create()
     {
-        $permission = Permission::get();
-        return view('dashboard.roles.create', compact('permission'));
+        $permissions = Permission::get();
+        return view('dashboard.roles.create', compact('permissions'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'name' => 'required|unique:roles,name',
-    //         'permission' => 'required',
-    //     ]);
-
-    //     $role = Role::create(['name' => $request->input('name')]);
-    //     $role->syncPermissions($request->permission);
-
-
-    //     return redirect()->route('roles.index')
-    //         ->with('success', 'Role created successfully');
-    // }
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required|array',
+            'permission' => 'required',
         ]);
 
-        $role = Role::create([
-            'name' => $request->input('name'),
-            'guard_name' => 'web',
-        ]);
+        $role = Role::create(['name' => $request->input('name')]);
+        $role->syncPermissions($request->permission);
 
-        if ($request->has('permission')) {
-            $permissions = $request->permission;
-
-            foreach ($permissions as $permissionId) {
-                $permission = Permission::find($permissionId);
-                $role->givePermissionTo($permission);
-            }
-        }
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
     }
+    // public function store(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'name' => 'required|unique:roles,name',
+    //         'permission' => 'required|array',
+    //     ]);
+
+    //     $role = Role::create([
+    //         'name' => $request->input('name'),
+    //         'guard_name' => 'web',
+    //     ]);
+
+    //     if ($request->has('permission')) {
+    //         $permissions = $request->permission;
+
+    //         foreach ($permissions as $permissionId) {
+    //             $permission = Permission::find($permissionId);
+    //             $role->givePermissionTo($permission);
+    //         }
+    //     }
+
+    //     return redirect()->route('roles.index')
+    //         ->with('success', 'Role created successfully');
+    // }
 
     public function show($id)
     {
@@ -85,12 +94,13 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::get();
+        // dd($role);
+        $permissions = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
-        return view('dashboard.roles.edit', compact('role', 'permission', 'rolePermissions'));
+        return view('dashboard.roles.edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
     public function update(Request $request, $id)
@@ -101,11 +111,12 @@ class RoleController extends Controller
         ]);
 
         $role = Role::find($id);
-        dd($role);
         $role->name = $request->input('name');
-        $role->save();
+        $role->update(['name' => $request->input('name')]);
 
-        $role->syncPermissions($request->input('permission'));
+        // $role->save();
+
+        $role->syncPermissions($request->permission);
 
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');

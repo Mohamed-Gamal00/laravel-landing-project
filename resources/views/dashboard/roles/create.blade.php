@@ -43,12 +43,12 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Permission:</strong>
+                    <strong>Permissions:</strong>
                     <br />
-                    @foreach ($permission as $value)
+                    @foreach ($permissions as $permission)
                         <label>
-                            <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="name">
-                            {{ $value->name }}</label>
+                            <input type="checkbox" name="permission[]" value="{{ $permission->name }}" class="name">
+                            {{ $permission->name }}</label>
                         <br />
                     @endforeach
                 </div>

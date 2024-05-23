@@ -11,13 +11,19 @@
 <nav class="site-nav">
     <div class="container">
         <div class="site-navigation">
-            <a href="{{route('landing')}}" class="logo m-0 float-start">Archiark<span class="text-primary">.</span> </a>
+            <a href="{{ route('landing') }}" class="logo m-0 float-start">Archiark<span class="text-primary">.</span> </a>
 
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-start">
-                <li class="{{ Request::routeIs('landing') ? 'active' : '' }}"><a href="{{route('landing')}}">Home</a></li>
-                <li class="{{ Request::routeIs('services') ? 'active' : '' }}"><a href="{{route('services')}}">Services</a></li>
-                <li class="{{ Request::routeIs('about') ? 'active' : '' }}"><a href="{{route('about')}}">About</a></li>
-                <li><a class="{{ Request::routeIs('contact') ? 'active' : '' }}" href="{{route('contact')}}">Contact</a></li>
+                <li class="{{ Request::routeIs('landing') ? 'active' : '' }}"><a href="{{ route('landing') }}">Home</a>
+                </li>
+                <li class="{{ Request::routeIs('services') ? 'active' : '' }}"><a
+                        href="{{ route('services') }}">Services</a></li>
+                <li class="{{ Request::routeIs('projects') ? 'active' : '' }}"><a
+                        href="{{ route('projects') }}">Projects</a></li>
+                <li class="{{ Request::routeIs('about') ? 'active' : '' }}"><a href="{{ route('about') }}">About</a>
+                </li>
+                <li><a class="{{ Request::routeIs('contact') ? 'active' : '' }}"
+                        href="{{ route('contact') }}">Contact</a></li>
             </ul>
 
 
@@ -29,7 +35,11 @@
             </a>
             <ul class="site-menu float-end d-none d-md-block">
                 <li><a href="#" class="d-flex align-items-center text-white h2 fw-bold"><span
-                            class="icon-phone me-2"></span> <span>+ 2 292 4392 327</span></a></li>
+                            class="icon-phone me-2"></span>
+                        @if ($settings)
+                            <span>{{ $settings->phone ? $settings->phone : '+ 2 292 4392 327' }}</span>
+                        @endif
+                    </a></li>
             </ul>
 
         </div>

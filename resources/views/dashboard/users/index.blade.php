@@ -69,18 +69,19 @@
                                         </td>
                                         <td class="align-middle">
                                             <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
-                                                <a href="{{ route('user.edit', $user->id) }}">
-                                                    <button class="btn btn-outline-success btn-with-icon btn-block">
-                                                        <i class="typcn typcn-edit m-0"></i>
-
-                                                    </button>
-                                                </a>
+                                                @can('user-edit')
+                                                    <a href="{{ route('user.edit', $user->id) }}">
+                                                        <button class="btn btn-outline-success btn-with-icon btn-block">
+                                                            <i class="typcn typcn-edit m-0"></i>
+                                                        </button>
+                                                    </a>
+                                                @endcan
                                             </div>
 
                                         </td>
                                         <td class="align-middle">
 
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="user"
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                                 id="deleteForm{{ $user->id }}">
                                                 @csrf
                                                 @method('DELETE')
