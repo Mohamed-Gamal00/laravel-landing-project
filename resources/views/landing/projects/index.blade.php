@@ -24,32 +24,37 @@
 
 
     <div class="section sec-5">
-        <div class="container">
-            <div class="row mb-5">
+        @if (count($projects))
+            <div class="container">
+                <div class="row mb-5">
 
-                <div class="col-lg-6 ms-auto">
-                    <p>Delectus voluptatum distinctio quos eius excepturi sunt pariatur, aut, doloribus officia ea molestias
-                        beatae laudantium, quam odio ipsum veritatis est maiores velit quasi blanditiis et natus accusamus
-                        itaque.</p>
+                    <div class="col-lg-6 ms-auto">
+                        <p>Delectus voluptatum distinctio quos eius excepturi sunt pariatur, aut, doloribus officia ea
+                            molestias
+                            beatae laudantium, quam odio ipsum veritatis est maiores velit quasi blanditiis et natus
+                            accusamus
+                            itaque.</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    @foreach ($projects as $project)
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <div class="single-portfolio">
+                                <a href="{{ route('project', $project->id) }}">
+                                    <img src="{{ asset("storage/$project->image") }}" height="200px" width="100%"
+                                        style="object-fit: cover;" alt="Image">
+                                    <div class="contents">
+                                        <h3>{{ $project->name }}</h3>
+                                        <div class="cat">Construction</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-
-            <div class="row g-4">
-                @foreach ($projects as $project)
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div class="single-portfolio">
-                            <a href="{{route('project',$project->id)}}">
-                                <img src="{{ asset("storage/$project->image") }}" height="200px" width="100%" style="object-fit: cover;" alt="Image">
-                                <div class="contents">
-                                    <h3>{{$project->name}}</h3>
-                                    <div class="cat">Construction</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+        @endif
     </div>
 
 

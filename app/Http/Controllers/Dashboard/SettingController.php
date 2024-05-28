@@ -30,7 +30,7 @@ class SettingController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.settings.create');
     }
 
     /**
@@ -71,7 +71,7 @@ class SettingController extends Controller
             'fb_link' => 'nullable',
             'tw_link' => 'nullable',
             'insta_link' => 'nullable',
-            'linkdin_link' => 'nullable',
+            'linkin_link' => 'nullable',
         ];
 
         $this->validate($request, $rules);
@@ -84,10 +84,10 @@ class SettingController extends Controller
             'fb_link' => $request->input('fb_link'),
             'tw_link' => $request->input('tw_link'),
             'insta_link' => $request->input('insta_link'),
-            'linkdin_link' => $request->input('linkdin_link'),
+            'linkin_link' => $request->input('linkin_link'),
         ]);
 
-        return redirect()->route('setting.index')->with('success', 'Setting Updated successfully');
+        return redirect()->route('settings.index')->with('success', 'Settings Updated successfully');
     }
 
     /**

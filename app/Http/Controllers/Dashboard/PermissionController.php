@@ -57,9 +57,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('dashboard.permissions.edit',compact('permission'));
-
-
+        return view('dashboard.permissions.edit', compact('permission'));
     }
 
     /**
@@ -71,14 +69,15 @@ class PermissionController extends Controller
             'name' => [
                 'required',
                 'string',
-                'unique:permissions,name,' .$permission->id            ]
+                'unique:permissions,name,' . $permission->id
+            ]
         ]);
 
         $permission->update([
             'name' => $request->name
         ]);
         return redirect()->route('permissions.index')
-        ->with('success', 'Permission Updated successfully');
+            ->with('success', 'Permission Updated successfully');
     }
 
     /**
@@ -89,6 +88,6 @@ class PermissionController extends Controller
         $permission = Permission::find($permissionId);
         $permission->delete();
         return redirect()->route('permissions.index')
-        ->with('success', 'Permission deleted successfully');
+            ->with('success', 'Permission deleted successfully');
     }
 }

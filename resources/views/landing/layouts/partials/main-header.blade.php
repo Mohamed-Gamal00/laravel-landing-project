@@ -34,9 +34,9 @@
                 <span></span>
             </a>
             <ul class="site-menu float-end d-none d-md-block">
-                <li><a href="#" class="d-flex align-items-center text-white h2 fw-bold"><span
-                            class="icon-phone me-2"></span>
+                <li><a href="#" class="d-flex align-items-center text-white h2 fw-bold">
                         @if ($settings)
+                            <span class="icon-phone me-2"></span>
                             <span>{{ $settings->phone ? $settings->phone : '+ 2 292 4392 327' }}</span>
                         @endif
                     </a></li>

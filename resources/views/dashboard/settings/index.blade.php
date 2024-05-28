@@ -28,83 +28,79 @@
             </div>
             <div class="card-body">
                 <div class="my-5">
-                    @if ($settings)
-                        @include('dashboard.layouts.partials.error_validation')
-                        <form method="POST" action="{{ route('setting.update', $settings->id) }}"
-                            enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" name="phone" value="{{ old('phone', $settings->phone) }}"
-                                    class="form-control" id="phone" placeholder="Enter phone">
-                                @error('phone')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                    @include('dashboard.layouts.partials.error_validation')
+                    <form method="POST" action="{{ route('settings.update',$settings->id) }}" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" value="{{ old('phone', $settings->phone) }}"
+                                class="form-control" id="phone" placeholder="Enter phone">
+                            @error('phone')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" value="{{ old('email', $settings->email) }}"
-                                    class="form-control" id="email" placeholder="Enter email">
-                                @error('email')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" value="{{ old('email', $settings->email) }}"
+                                class="form-control" id="email" placeholder="Enter email">
+                            @error('email')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="fb_link">Facebook Link</label>
-                                <input type="text" name="fb_link" value="{{ old('fb_link', $settings->fb_link) }}"
-                                    class="form-control" id="fb_link" placeholder="Enter Facebook link">
-                                @error('fb_link')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label for="fb_link">Facebook Link</label>
+                            <input type="text" name="fb_link" value="{{ old('fb_link', $settings->fb_link) }}"
+                                class="form-control" id="fb_link" placeholder="Enter Facebook link">
+                            @error('fb_link')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="tw_link">Twitter Link</label>
-                                <input type="text" name="tw_link" value="{{ old('tw_link', $settings->tw_link) }}"
-                                    class="form-control" id="tw_link" placeholder="Enter Twitter link">
-                                @error('tw_link')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label for="tw_link">Twitter Link</label>
+                            <input type="text" name="tw_link" value="{{ old('tw_link', $settings->tw_link) }}"
+                                class="form-control" id="tw_link" placeholder="Enter Twitter link">
+                            @error('tw_link')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="insta_link">Instagram Link</label>
-                                <input type="text" name="insta_link"
-                                    value="{{ old('insta_link', $settings->insta_link) }}" class="form-control"
-                                    id="insta_link" placeholder="Enter Instagram link">
-                                @error('insta_link')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label for="insta_link">Instagram Link</label>
+                            <input type="text" name="insta_link" value="{{ old('insta_link', $settings->insta_link) }}"
+                                class="form-control" id="insta_link" placeholder="Enter Instagram link">
+                            @error('insta_link')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <div class="form-group">
-                                <label for="linkdin_link">LinkedIn Link</label>
-                                <input type="text" name="linkin_link"
-                                    value="{{ old('linkin_link', $settings->linkin_link) }}" class="form-control"
-                                    id="linkdin_link" placeholder="Enter LinkedIn link">
-                                @error('linkin_link')
-                                    <div>
-                                        <p class="text-danger">{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label for="linkdin_link">LinkedIn Link</label>
+                            <input type="text" name="linkin_link"
+                                value="{{ old('linkin_link', $settings->linkin_link) }}" class="form-control"
+                                id="linkdin_link" placeholder="Enter LinkedIn link">
+                            @error('linkin_link')
+                                <div>
+                                    <p class="text-danger">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    @endif
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div><!-- bd -->
         </div><!-- bd -->

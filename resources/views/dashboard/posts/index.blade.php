@@ -62,7 +62,8 @@
                                                 src="{{ asset("storage/$post->image") }}" width="60" height="60"
                                                 alt="img"></td>
                                         <td class="align-middle">{{ $post->title }}</td>
-                                        <td class="align-middle">{{ $post->category->name }}</td>
+                                        <td class="align-middle"> {{ optional($post->category)->name ?? 'No Category' }}
+                                        </td>
                                         <td class="align-middle">{{ $post->content }}</td>
                                         <td class="align-middle">
                                             <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">

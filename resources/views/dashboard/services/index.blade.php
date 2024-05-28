@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Projects</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">services</h2>
             </div>
         </div>
     </div>
@@ -28,11 +28,11 @@
                 @endif
                 <div class="d-flex justify-content-between">
                     <div>
-                        <a href="{{ route('project.create') }}">
+                        <a href="{{ route('services.create') }}">
 
                             <button class="btn btn-outline-dark btn-block font-weight-bold">
                                 <i class="fa fa-plus mx-1"></i>
-                                Add New Projects
+                                Add New services
                             </button>
                         </a>
                     </div>
@@ -42,41 +42,31 @@
             <div class="card-body">
 
 
-                @if (count($projects))
+                @if (count($services))
                     <div class="table-responsive">
                         <table class="table table-striped mg-b-0 text-md-nowrap">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Image</th>
-                                    <th>Name</th>
+                                    <th>title</th>
                                     <th>description</th>
-                                    <th>link</th>
-                                    <th>client</th>
-                                    <th>work_year</th>
-                                    <th>started</th>
-                                    <th>finished</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($projects as $project)
+                                @foreach ($services as $service)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td class="align-middle"><img style="object-fit: cover;border-radius: 8px;"
-                                                src="{{ asset("storage/$project->image") }}" width="60" height="60"
+                                                src="{{ asset("storage/$service->image") }}" width="60" height="60"
                                                 alt="img"></td>
-                                        <td class="align-middle">{{ $project->name }}</td>
-                                        <td class="align-middle">{{ $project->description }}</td>
-                                        <td class="align-middle">{{ $project->link }}</td>
-                                        <td class="align-middle">{{ $project->client }}</td>
-                                        <td class="align-middle">{{ $project->work_year }}</td>
-                                        <td class="align-middle">{{ $project->started }}</td>
-                                        <td class="align-middle">{{ $project->finished }}</td>
+                                        <td class="align-middle">{{ $service->title }}</td>
+                                        <td class="align-middle">{{ $service->desc }}</td>
                                         <td class="align-middle">
                                             <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
-                                                <a href="{{ route('project.edit', $project->id) }}">
+                                                <a href="{{ route('services.edit', $service->id) }}">
                                                     <button class="btn btn-outline-success btn-with-icon btn-block">
                                                         <i class="typcn typcn-edit m-0"></i>
                                                     </button>
@@ -86,14 +76,14 @@
                                         </td>
                                         <td class="align-middle">
 
-                                            <form action="{{ route('project.destroy', $project->id) }}" method="POST"
-                                                id="deleteForm{{ $project->id }}">
+                                            <form action="{{ route('services.destroy', $service->id) }}" method="POST"
+                                                id="deleteForm{{ $service->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="col-sm-6 col-md-4 mg-t-10 mg-md-t-0 p-0">
                                                     <button type="button"
                                                         class="btn btn-outline-danger btn-with-icon btn-block"
-                                                        onclick="confirmDelete({{ $project->id }})">
+                                                        onclick="confirmDelete({{ $service->id }})">
                                                         <i class="typcn typcn-trash m-0"></i>
                                                     </button>
                                                 </div>
@@ -101,7 +91,7 @@
 
                                             <script>
                                                 function confirmDelete(id) {
-                                                    if (confirm('Are you sure you want to delete this project?')) {
+                                                    if (confirm('Are you sure you want to delete this service?')) {
                                                         document.getElementById('deleteForm' + id).submit();
                                                     }
                                                 }
@@ -114,7 +104,7 @@
                             </tbody>
                         </table>
 
-                        {{ $projects->links() }} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
+                        {{ $services->links() }} {{-- اخلي الباجينيشن يكون بالبوتستراب App serveice provider بروح ل  --}}
                     </div><!-- bd -->
                 @else
                     <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
@@ -137,7 +127,7 @@
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.projects.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.services.js') }}"></script>
     <script src="{{ URL::asset('assets/js/dashboard.sampledata.js') }}"></script>
     <script src="{{ URL::asset('assets/js/chart.flot.sampledata.js') }}"></script>
     <!--Internal Apexchart js-->

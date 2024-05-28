@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
-class ServicesController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class ServicesController extends Controller
     public function index()
     {
         $settings = Setting::first();
-        return view('landing.services.index',compact('settings'));
+        return view('landing.services.index', compact('settings'));
     }
 
     /**
@@ -54,7 +55,11 @@ class ServicesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request);
+        $settings = Setting::findOrFail($id);
+
+        $settings->update($request->all());
+        return Redirect::route('setting.index')->with('success', 'Setting Updated success');
     }
 
     /**
